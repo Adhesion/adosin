@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="VST interface">
+      <UniqueIdentifier>{cfb6c6e4-1482-40e0-8f99-f6a4e5a8f178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST source">
+      <UniqueIdentifier>{b96e79c6-09cb-41b9-ba70-c62fe8dc80c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\aeffect.h">
+      <Filter>VST interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\aeffectx.h">
+      <Filter>VST interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\vstfxstore.h">
+      <Filter>VST interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\aeffeditor.h">
+      <Filter>VST source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.h">
+      <Filter>VST source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffectx.h">
+      <Filter>VST source</Filter>
+    </ClInclude>
+    <ClInclude Include="adosinVST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.cpp">
+      <Filter>VST source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffectx.cpp">
+      <Filter>VST source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\vstplugmain.cpp">
+      <Filter>VST source</Filter>
+    </ClCompile>
+    <ClCompile Include="adosinVSTMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="adosinVST.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vstplug.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

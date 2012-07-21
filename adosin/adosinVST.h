@@ -51,8 +51,8 @@ public:
 	VstInt32 getVendorVersion();
 
 private:
-	char name[ 32 ];
-	char vendor[ 32 ];
+	char name[ kVstMaxEffectNameLen ];
+	char vendor[ kVstMaxVendorStrLen ];
 	VstInt32 version;
 
 	float parameters[ numAParams ];

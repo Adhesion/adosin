@@ -52,9 +52,9 @@ void adosin::processReplacing( float** inputs, float** outputs, VstInt32 sampleF
 {
 	for( VstInt32 i = 0; i < sampleFrames; i++ )
 	{
-		for ( int j = 0; j < numChannels; j++ )
+		for( int j = 0; j < numChannels; j++ )
 		{
-			outputs[j][i] = shape( inputs[j][i], parameters[ amount ],
+			outputs[ j ][ i ] = shape( inputs[ j ][ i ], parameters[ amount ],
 				parameters[ pregain ], parameters[ postgain ],
 				parameters[ dryWet ] );
 		}

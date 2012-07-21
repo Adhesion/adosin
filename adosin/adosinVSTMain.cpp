@@ -10,5 +10,5 @@
 
 AudioEffect* createEffectInstance( audioMasterCallback master )
 {
-	return new adosin( master );
+	return new adosinVST( master );
 }

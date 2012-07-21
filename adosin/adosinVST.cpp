@@ -10,7 +10,7 @@
 #include <math.h>
 #include <stdio.h>
 
-adosin::adosin( audioMasterCallback master )
+adosinVST::adosinVST( audioMasterCallback master )
 	: AudioEffectX( master, numAPrograms, numAParams )
 {
 	strcpy( name, "adosin" );
@@ -43,12 +43,12 @@ adosin::adosin( audioMasterCallback master )
 	setUniqueID( 'adsn' );
 }
 
-adosin::~adosin()
+adosinVST::~adosinVST()
 {
 	delete[] programs;
 }
 
-void adosin::processReplacing( float** inputs, float** outputs, VstInt32 sampleFrames )
+void adosinVST::processReplacing( float** inputs, float** outputs, VstInt32 sampleFrames )
 {
 	for( VstInt32 i = 0; i < sampleFrames; i++ )
 	{
@@ -61,7 +61,7 @@ void adosin::processReplacing( float** inputs, float** outputs, VstInt32 sampleF
 	}
 }
 
-float adosin::shape( float in, float amount, float pregain, float postgain, float dryWet )
+float adosinVST::shape( float in, float amount, float pregain, float postgain, float dryWet )
 {
 	if ( in == 0.0f )
 		return in;
@@ -74,7 +74,7 @@ float adosin::shape( float in, float amount, float pregain, float postgain, floa
 	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
 }
 
-void adosin::setParameter( VstInt32 index, float value )
+void adosinVST::setParameter( VstInt32 index, float value )
 {
 	if ( index == amount )
 	{
@@ -86,7 +86,7 @@ void adosin::setParameter( VstInt32 index, float value )
 	programs[ curProgram ].parameters[ index ] = value;
 }
 
-float adosin::getParameter( VstInt32 index )
+float adosinVST::getParameter( VstInt32 index )
 {
 	float ret = parameters[ index ];
 	if ( index == amount )
@@ -97,7 +97,7 @@ float adosin::getParameter( VstInt32 index )
 	return ret;
 }
 
-void adosin::getParameterName( VstInt32 index, char* text )
+void adosinVST::getParameterName( VstInt32 index, char* text )
 {
 	switch( index )
 	{
@@ -119,7 +119,7 @@ void adosin::getParameterName( VstInt32 index, char* text )
 	}
 }
 
-void adosin::getParameterDisplay( VstInt32 index, char* text )
+void adosinVST::getParameterDisplay( VstInt32 index, char* text )
 {
 	switch( index )
 	{
@@ -136,7 +136,7 @@ void adosin::getParameterDisplay( VstInt32 index, char* text )
 	}
 }
 
-void adosin::getParameterLabel( VstInt32 index, char* text )
+void adosinVST::getParameterLabel( VstInt32 index, char* text )
 {
 	switch( index )
 	{
@@ -149,35 +149,35 @@ void adosin::getParameterLabel( VstInt32 index, char* text )
 	}
 }
 
-void adosin::setProgramName( char* name )
+void adosinVST::setProgramName( char* name )
 {
 	strcpy( programs[ curProgram ].name, name );
 }
 
-void adosin::getProgramName( char* name )
+void adosinVST::getProgramName( char* name )
 {
 	strcpy( name, programs[ curProgram ].name );
 }
 
-bool adosin::getEffectName( char* eName )
+bool adosinVST::getEffectName( char* eName )
 {
 	strcpy( eName, name );
 	return true;
 }
 
-bool adosin::getProductString( char* pString )
+bool adosinVST::getProductString( char* pString )
 {
 	strcpy( pString, name );
 	return true;
 }
 
-bool adosin::getVendorString( char* vString )
+bool adosinVST::getVendorString( char* vString )
 {
 	strcpy( vString, vendor );
 	return true;
 }
 
-VstInt32 adosin::getVendorVersion()
+VstInt32 adosinVST::getVendorVersion()
 {
 	return version;
 }

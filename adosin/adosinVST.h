@@ -6,8 +6,8 @@
  * @author Adhesion
  */
 
-#ifndef __ADOSIN_H
-#define __ADOSIN_H
+#ifndef __ADOSINVST_H
+#define __ADOSINVST_H
 
 #include "public.sdk/source/vst2.x/audioeffectx.h"
 
@@ -27,11 +27,11 @@ typedef struct
 	char name[ kVstMaxProgNameLen ];
 } adosinProgram;
 
-class adosin : public AudioEffectX
+class adosinVST : public AudioEffectX
 {
 public:
-	adosin( audioMasterCallback master );
-	~adosin();
+	adosinVST( audioMasterCallback master );
+	~adosinVST();
 
 	void processReplacing( float** inputs, float** outputs, VstInt32 sampleFrames );
 	float shape( float in, float amount, float pregain, float postgain, float dryWet );

@@ -75,6 +75,7 @@
     <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.h" />
     <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffectx.h" />
     <ClInclude Include="adosinVST.h" />
+    <ClInclude Include="shaper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.cpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\vstplugmain.cpp" />
     <ClCompile Include="adosinVST.cpp" />
     <ClCompile Include="adosinVSTMain.cpp" />
+    <ClCompile Include="shaper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vstplug.def" />

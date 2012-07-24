@@ -7,7 +7,6 @@
  */
 
 #include "adosinVST.h"
-#include <math.h>
 #include <stdio.h>
 
 adosinVST::adosinVST( audioMasterCallback master )
@@ -16,8 +15,11 @@ adosinVST::adosinVST( audioMasterCallback master )
 	strcpy( name, "adosin" );
 	strcpy( vendor, "Adhesion" );
 
-	version = 1000;
+	version = 1001;
 
+	init( shapers );
+
+	parameters[ shaperMethod ] = 0.0f;
 	parameters[ amount ] = 1.0f;
 	parameters[ pregain ] = 1.0f;
 	parameters[ postgain ] = 1.0f;
@@ -26,6 +28,7 @@ adosinVST::adosinVST( audioMasterCallback master )
 	programs = new adosinProgram[ numAPrograms ];
 	for( int i = 0; i < numAPrograms; i++ )
 	{
+		programs[ i ].parameters[ shaperMethod ] = parameters[ shaperMethod ];
 		programs[ i ].parameters[ amount ] = parameters[ amount ];
 		programs[ i ].parameters[ pregain ] = parameters[ pregain ];
 		programs[ i ].parameters[ postgain ] = parameters[ postgain ];
@@ -34,6 +37,9 @@ adosinVST::adosinVST( audioMasterCallback master )
 	}
 
 	numChannels = 2;
+
+	// see declaration to explain this nonsense
+	numShapersF = numShapers - 0.001f;
 
 	setNumInputs( numChannels );
 	setNumOutputs( numChannels );
@@ -48,52 +54,70 @@ adosinVST::~adosinVST()
 	delete[] programs;
 }
 
-void adosinVST::processReplacing( float** inputs, float** outputs, VstInt32 sampleFrames )
+void adosinVST::processReplacing( float** inputs, float** outputs,
+	VstInt32 sampleFrames )
 {
 	for( VstInt32 i = 0; i < sampleFrames; i++ )
 	{
 		for( int j = 0; j < numChannels; j++ )
 		{
-			outputs[ j ][ i ] = shape( inputs[ j ][ i ], parameters[ amount ],
-				parameters[ pregain ], parameters[ postgain ],
+			int sh = (int)parameters[ shaperMethod ];
+			outputs[ j ][ i ] = shapers[ sh ].shape( inputs[ j ][ i ],
+				parameters[ amount ], parameters[ pregain ], parameters[ postgain ],
 				parameters[ dryWet ] );
 		}
 	}
 }
 
-float adosinVST::shape( float in, float amount, float pregain, float postgain, float dryWet )
-{
-	if ( in == 0.0f )
-		return in;
-
-	float flip = in < 0.0f ? -1.0f : 1.0f;
-
-	in *= pregain;
-	float out = pow( in * flip, amount ) * flip;
-
-	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
-}
-
+/*
+ * Note this is called by VST host and value input will be [0.0-1.0]
+ */
 void adosinVST::setParameter( VstInt32 index, float value )
 {
+	int method = (int)parameters[ shaperMethod ];
+	shaper s = shapers[ method ];
+
 	if ( index == amount )
 	{
-		// if amount, scale to 0.0-5.0
-		value *= 5.0f;
+		// if amount, scale to proper range with the shaper's scale
+		value = s.scale( value, s.min, s.max );
+	}
+	else if ( index == shaperMethod )
+	{
+		value = floorScale( value, 0.0f, numShapersF );
 	}
 
 	parameters[ index ] = value;
 	programs[ curProgram ].parameters[ index ] = value;
+
+	// if method changes, we need to fix amount to scale to the new range
+	// (use the old method's descale to get to 0.0-1.0 & call setParam)
+	if ( index == shaperMethod && (int)value != method )
+	{
+		float tempVal = s.descale( parameters[ amount ], s.min, s.max );
+		setParameter( amount, tempVal );
+	}
 }
 
+/*
+ * Note output of this has to be [0.0-1.0] for VST interface
+ */
 float adosinVST::getParameter( VstInt32 index )
 {
+	int method = (int)parameters[ shaperMethod ];
+	shaper s = shapers[ method ];
+
 	float ret = parameters[ index ];
 	if ( index == amount )
 	{
 		// output of this has to be 0.0-1.0 so un-scale
-		ret /= 5.0f;
+		ret = s.descale( ret, s.min, s.max );
 	}
+	else if ( index == shaperMethod )
+	{
+		ret = linearDescale( ret, 0.0f, numShapersF );
+	}
+
 	return ret;
 }
 
@@ -101,6 +125,9 @@ void adosinVST::getParameterName( VstInt32 index, char* text )
 {
 	switch( index )
 	{
+	case shaperMethod:
+		strcpy( text, "Method" );
+		break;
 	case amount:
 		strcpy( text, "Amount" );
 		break;
@@ -123,6 +150,9 @@ void adosinVST::getParameterDisplay( VstInt32 index, char* text )
 {
 	switch( index )
 	{
+	case shaperMethod:
+		strcpy( text, shapers[ (int)parameters[ shaperMethod ] ].name );
+		break;
 	case amount:
 	case dryWet:
 		float2string( parameters[ index ], text, kVstMaxParamStrLen );

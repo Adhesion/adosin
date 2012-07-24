@@ -9,11 +9,14 @@
 #ifndef __ADOSINVST_H
 #define __ADOSINVST_H
 
+#include "shaper.h"
+
 #include "public.sdk/source/vst2.x/audioeffectx.h"
 
 enum
 {
-	amount = 0,
+	shaperMethod = 0,
+	amount,
 	pregain,
 	postgain,
 	dryWet,
@@ -34,7 +37,6 @@ public:
 	~adosinVST();
 
 	void processReplacing( float** inputs, float** outputs, VstInt32 sampleFrames );
-	float shape( float in, float amount, float pregain, float postgain, float dryWet );
 	
 	void setParameter( VstInt32 index, float value );
 	float getParameter( VstInt32 index );
@@ -57,6 +59,12 @@ private:
 
 	float parameters[ numAParams ];
 	int numChannels;
+
+	shaper shapers[ numShapers ];
+
+	// float for input to scalers - numShapers minus a tiny bit to make sure
+	// floor output is (integer) [0, numShapers)
+	float numShapersF;
 
 	adosinProgram* programs;
 };

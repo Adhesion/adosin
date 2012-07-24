@@ -66,10 +66,10 @@ float adosinVST::shape( float in, float amount, float pregain, float postgain, f
 	if ( in == 0.0f )
 		return in;
 
-	bool flip = ( in < 0.0f );
+	float flip = in < 0.0f ? -1.0f : 1.0f;
 
 	in *= pregain;
-	float out = pow( in * ( flip ? -1.0f : 1.0f ), amount ) * ( flip ? -1.0f : 1.0f );
+	float out = pow( in * flip, amount ) * flip;
 
 	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
 }

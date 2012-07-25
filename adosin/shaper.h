@@ -24,6 +24,11 @@ enum
 typedef float ( *shaperFunc )( float, float, float, float, float );
 typedef float ( *scaleFunc )( float, float, float );
 
+/*
+ * Data structure for a shaper, including minimum/maximum allowed values for
+ * input to the shaper function & scaling functions to go from [0.0-1.0] to
+ * [min-max] (see below)
+ */
 typedef struct
 {
 	char* name;
@@ -40,6 +45,11 @@ typedef struct
  */
 void init( shaper* shapers );
 
+/*
+ * Scale takes input of [0.0-1.0] and scales to [min-max], descale does the
+ * reverse. Inverse scaling (ie min > max) is supported.
+ * Originally written as helper functions for interfacing with VST.
+ */
 float linearScale( float in, float min, float max );
 float linearDescale( float in, float min, float max );
 

@@ -58,8 +58,7 @@ float linearScale( float in, float min, float max )
 	}
 	else if ( min > max )
 	{
-		ret = max + ( in * ( min - max ) );
-		ret = 1.0f - ret;
+		ret = min - ( in * ( min - max ) );
 	}
 	else
 	{
@@ -77,8 +76,7 @@ float linearDescale( float in, float min, float max )
 	}
 	else if ( min > max )
 	{
-		in = 1.0f - in;
-		ret = ( in - max ) / ( min - max );
+		ret = ( min - in ) / ( min - max );
 	}
 	else
 	{

@@ -13,35 +13,35 @@
 
 void init( shaper* shapers )
 {
-	shapers[ expoOver ].name = "Exponentiation >1";
+	shapers[ expoOver ].name = "Exponent >1";
 	shapers[ expoOver ].shape = &expoShape;
 	shapers[ expoOver ].scale = &linearScale;
 	shapers[ expoOver ].descale = &linearDescale;
 	shapers[ expoOver ].min = 1.0f;
 	shapers[ expoOver ].max = 5.0f;
 
-	shapers[ expoUnder ].name = "Exponentiation <1";
+	shapers[ expoUnder ].name = "Exponent <1";
 	shapers[ expoUnder ].shape = &expoShape;
 	shapers[ expoUnder ].scale = &linearScale;
 	shapers[ expoUnder ].descale = &linearDescale;
 	shapers[ expoUnder ].min = 1.0f;
 	shapers[ expoUnder ].max = 0.1f;
 
-	shapers[ softClip ].name = "Soft Clipping";
+	shapers[ softClip ].name = "Soft Clip";
 	shapers[ softClip ].shape = &softClipShape;
 	shapers[ softClip ].scale = &linearScale;
 	shapers[ softClip ].descale = &linearDescale;
 	shapers[ softClip ].min = 0.0f;
 	shapers[ softClip ].max = 0.0f;
 
-	shapers[ sine ].name = "Sine Wave Shaping";
+	shapers[ sine ].name = "Sine Wave";
 	shapers[ sine ].shape = &sineShape;
 	shapers[ sine ].scale = &linearScale;
 	shapers[ sine ].descale = &linearDescale;
 	shapers[ sine ].min = 1.0f;
 	shapers[ sine ].max = 10.0f;
 
-	shapers[ chebyshev ].name = "Chebyshev Polynomial";
+	shapers[ chebyshev ].name = "Chebyshev";
 	shapers[ chebyshev ].shape = &chebyshevShape;
 	shapers[ chebyshev ].scale = &floorScale;
 	shapers[ chebyshev ].descale = &linearDescale;

@@ -35,7 +35,7 @@ typedef struct
 } shaper;
 
 /* 
- * Input an array of shapers (already in memory) and set default values and
+ * Take an array of shapers (already in memory) and set default values and
  * functions.
  */
 void init( shaper* shapers );

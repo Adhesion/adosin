@@ -95,7 +95,11 @@ void adosinVST::setParameter( VstInt32 index, float value )
 	if ( index == shaperMethod && (int)value != method )
 	{
 		float tempVal = s.descale( parameters[ amount ], s.min, s.max );
-		setParameter( amount, tempVal );
+		// note - have to use the automated variant here in order to update
+		// GUI in some hosts - unfortunately doesn't work in ableton :(
+		// can do updatedisplay() instead but makes click-and-drag behavior
+		// feel wonky
+		setParameterAutomated( amount, tempVal );
 	}
 }
 

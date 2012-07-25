@@ -158,6 +158,15 @@ void adosinVST::getParameterDisplay( VstInt32 index, char* text )
 		strcpy( text, shapers[ (int)parameters[ shaperMethod ] ].name );
 		break;
 	case amount:
+		if ( parameters[ (int)shaperMethod ] == softClip )
+		{
+			strcpy( text, "N/A" );
+		}
+		else
+		{
+			float2string( parameters[ index ], text, kVstMaxParamStrLen );
+		}
+		break;
 	case dryWet:
 		float2string( parameters[ index ], text, kVstMaxParamStrLen );
 		break;

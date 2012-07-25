@@ -90,16 +90,16 @@ void adosinVST::setParameter( VstInt32 index, float value )
 	parameters[ index ] = value;
 	programs[ curProgram ].parameters[ index ] = value;
 
-	// if method changes, we need to fix amount to scale to the new range
-	// (use the old method's descale to get to 0.0-1.0 & call setParam)
+	// if method changes, let's reset value back to 0.0 to prevent any scary
+	// blasts of noise (ie, going from maximum in one method -> maximum in
+	// expo <1)
 	if ( index == shaperMethod && (int)value != method )
 	{
-		float tempVal = s.descale( parameters[ amount ], s.min, s.max );
 		// note - have to use the automated variant here in order to update
 		// GUI in some hosts - unfortunately doesn't work in ableton :(
 		// can do updatedisplay() instead but makes click-and-drag behavior
 		// feel wonky
-		setParameterAutomated( amount, tempVal );
+		setParameterAutomated( amount, 0.0f );
 	}
 }
 

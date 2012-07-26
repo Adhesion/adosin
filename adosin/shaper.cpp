@@ -112,7 +112,9 @@ float expoShape( float in, float amount, float pregain, float postgain, float dr
 
 float softClipShape( float in, float amount, float pregain, float postgain, float dryWet )
 {
-	return 0.0f;
+	in *= pregain;
+	float out = in / ( 1 + fabs( in ) );
+	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
 }
 
 float sineShape( float in, float amount, float pregain, float postgain, float dryWet )

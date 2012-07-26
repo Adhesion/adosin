@@ -97,32 +97,27 @@ float floorScale( float in, float min, float max )
 	}
 }
 
-float expoShape( float in, float amount, float pregain, float postgain, float dryWet )
+float expoShape( float in, float amount )
 {
 	if ( in == 0.0f )
 		return in;
 
 	float flip = in < 0.0f ? -1.0f : 1.0f;
 
-	in *= pregain;
-	float out = pow( in * flip, amount ) * flip;
-
-	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
+	return pow( in * flip, amount ) * flip;
 }
 
-float softClipShape( float in, float amount, float pregain, float postgain, float dryWet )
+float softClipShape( float in, float amount )
 {
-	in *= pregain;
-	float out = in / ( 1 + fabs( in ) );
-	return ( ( in * ( 1.0f - dryWet ) ) + ( out * dryWet ) ) * postgain;
+	return in / ( 1 + fabs( in ) );
 }
 
-float sineShape( float in, float amount, float pregain, float postgain, float dryWet )
+float sineShape( float in, float amount )
 {
 	return 0.0f;
 }
 
-float chebyshevShape( float in, float amount, float pregain, float postgain, float dryWet )
+float chebyshevShape( float in, float amount )
 {
 	return 0.0f;
 }

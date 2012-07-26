@@ -21,7 +21,7 @@ enum
 	numShapers
 };
 
-typedef float ( *shaperFunc )( float, float, float, float, float );
+typedef float ( *shaperFunc )( float, float );
 typedef float ( *scaleFunc )( float, float, float );
 
 /*
@@ -59,10 +59,10 @@ float linearDescale( float in, float min, float max );
  */
 float floorScale( float in, float min, float max );
 
-float expoShape( float in, float amount, float pregain, float postgain, float dryWet );
-float softClipShape( float in, float amount, float pregain, float postgain, float dryWet );
-float sineShape( float in, float amount, float pregain, float postgain, float dryWet );
-float chebyshevShape( float in, float amount, float pregain, float postgain, float dryWet );
+float expoShape( float in, float amount );
+float softClipShape( float in, float amount );
+float sineShape( float in, float amount );
+float chebyshevShape( float in, float amount );
 float chebyshevRec( float in, int depth );
 
 #endif

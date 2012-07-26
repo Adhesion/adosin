@@ -62,9 +62,10 @@ void adosinVST::processReplacing( float** inputs, float** outputs,
 		for( int j = 0; j < numChannels; j++ )
 		{
 			int sh = (int)parameters[ shaperMethod ];
-			outputs[ j ][ i ] = shapers[ sh ].shape( inputs[ j ][ i ],
-				parameters[ amount ], parameters[ pregain ], parameters[ postgain ],
-				parameters[ dryWet ] );
+			float in = inputs[ j ][ i ] * parameters[ pregain ];
+			float out = shapers[ sh ].shape( in, parameters[ amount ] );
+			outputs[ j ][ i ] = ( ( in * ( 1.0f - parameters[ dryWet ] ) ) +
+				( out * parameters[ dryWet ] ) ) * parameters[ postgain ];
 		}
 	}
 }

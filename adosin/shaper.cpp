@@ -39,7 +39,7 @@ void init( shaper* shapers )
 	shapers[ sine ].scale = &linearScale;
 	shapers[ sine ].descale = &linearDescale;
 	shapers[ sine ].min = 1.0f;
-	shapers[ sine ].max = 10.0f;
+	shapers[ sine ].max = 100.0f;
 
 	shapers[ chebyshev ].name = "Chebyshev";
 	shapers[ chebyshev ].shape = &chebyshevShape;
@@ -114,7 +114,7 @@ float softClipShape( float in, float amount )
 
 float sineShape( float in, float amount )
 {
-	return 0.0f;
+	return in * cos( in * amount );
 }
 
 float chebyshevShape( float in, float amount )

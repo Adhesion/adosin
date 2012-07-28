@@ -119,10 +119,18 @@ float sineShape( float in, float amount )
 
 float chebyshevShape( float in, float amount )
 {
-	return 0.0f;
+	return chebyshevRec( in, (int)amount );
 }
 
 float chebyshevRec( float in, int depth )
 {
-	return 0.0f;
+	if ( depth == 0 )
+	{
+		return 1.0f;
+	}
+	else if ( depth == 1 )
+	{
+		return in;
+	}
+	return ( 2.0f * in * chebyshevRec( in, depth - 1 ) ) - chebyshevRec( in, depth - 2 );
 }

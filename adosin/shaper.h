@@ -13,11 +13,11 @@
 
 enum
 {
-	expoOver = 0,
+	sine = 0,
+	chebyshev,
+	expoOver,
 	expoUnder,
 	softClip,
-	sine,
-	chebyshev,
 	numShapers
 };
 

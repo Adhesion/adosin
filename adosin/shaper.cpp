@@ -13,6 +13,20 @@
 
 void init( shaper* shapers )
 {
+	shapers[ sine ].name = "Sine Wave";
+	shapers[ sine ].shape = &sineShape;
+	shapers[ sine ].scale = &linearScale;
+	shapers[ sine ].descale = &linearDescale;
+	shapers[ sine ].min = 1.0f;
+	shapers[ sine ].max = 100.0f;
+
+	shapers[ chebyshev ].name = "Chebyshev";
+	shapers[ chebyshev ].shape = &chebyshevShape;
+	shapers[ chebyshev ].scale = &floorScale;
+	shapers[ chebyshev ].descale = &linearDescale;
+	shapers[ chebyshev ].min = 1.0f;
+	shapers[ chebyshev ].max = 10.0f;
+
 	shapers[ expoOver ].name = "Exponent >1";
 	shapers[ expoOver ].shape = &expoShape;
 	shapers[ expoOver ].scale = &linearScale;
@@ -33,20 +47,6 @@ void init( shaper* shapers )
 	shapers[ softClip ].descale = &linearDescale;
 	shapers[ softClip ].min = 0.0f;
 	shapers[ softClip ].max = 0.0f;
-
-	shapers[ sine ].name = "Sine Wave";
-	shapers[ sine ].shape = &sineShape;
-	shapers[ sine ].scale = &linearScale;
-	shapers[ sine ].descale = &linearDescale;
-	shapers[ sine ].min = 1.0f;
-	shapers[ sine ].max = 100.0f;
-
-	shapers[ chebyshev ].name = "Chebyshev";
-	shapers[ chebyshev ].shape = &chebyshevShape;
-	shapers[ chebyshev ].scale = &floorScale;
-	shapers[ chebyshev ].descale = &linearDescale;
-	shapers[ chebyshev ].min = 1.0f;
-	shapers[ chebyshev ].max = 10.0f;
 }
 
 float linearScale( float in, float min, float max )

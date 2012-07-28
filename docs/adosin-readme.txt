@@ -39,7 +39,8 @@ the opposite. When using exponentiation < 1, BE CAREFUL! Very low values for
 VERY LOUD. That's what the gain controls are for :>
 
 Also, when using > 1, be careful of input beyond 1/-1, as obviously it will
-exponentially clip even more.
+exponentially clip even more. Inversely, particularly quiet input will probably
+get quieter, so it might be a good idea to compress both the input & output.
 
 Soft Clip:
 

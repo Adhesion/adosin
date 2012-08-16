@@ -1,5 +1,7 @@
 Debug/
 adosin/Debug/
+Release/
+adosin/Release/
 ipch/
 *.suo
 *.user

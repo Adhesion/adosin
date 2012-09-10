@@ -77,6 +77,8 @@ private:
 	char vendor[ kVstMaxVendorStrLen ];
 	VstInt32 version;
 
+	// note parameters are stored as their actual values, not normalized
+	// 0.0-1.0 for VST (done on input/output)
 	float parameters[ numAParams ];
 	int numChannels;
 

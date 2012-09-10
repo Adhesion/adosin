@@ -107,6 +107,10 @@ void adosinVST::setParameter( VstInt32 index, float value )
 	{
 		value = floorScale( value, 0.0f, numShapersF );
 	}
+	else if ( index == pregain || index == postgain )
+	{
+		value = expoScale( value, 0.0f, 2.0f );
+	}
 
 	parameters[ index ] = value;
 	programs[ curProgram ].parameters[ index ] = value;
@@ -132,15 +136,19 @@ float adosinVST::getParameter( VstInt32 index )
 	int method = (int)parameters[ shaperMethod ];
 	shaper s = shapers[ method ];
 
+	// output of this has to be 0.0-1.0 so un-scale
 	float ret = parameters[ index ];
 	if ( index == amount )
 	{
-		// output of this has to be 0.0-1.0 so un-scale
 		ret = s.descale( ret, s.min, s.max );
 	}
 	else if ( index == shaperMethod )
 	{
 		ret = linearDescale( ret, 0.0f, numShapersF );
+	}
+	else if ( index == pregain || index == postgain )
+	{
+		ret = expoDescale( ret, 0.0f, 2.0f );
 	}
 
 	return ret;

@@ -67,6 +67,7 @@
       <CompileAsManaged>false</CompileAsManaged>
       <PreprocessorDefinitions>_WINDOWS;WIN32;_USRDLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\vstsdk2.4;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

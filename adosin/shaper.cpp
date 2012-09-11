@@ -181,9 +181,18 @@ float chebyshevRec( float in, int depth )
 	{
 		return 1.0f;
 	}
-	else if ( depth == 1 )
+
+	// lastval represents C(k-1)
+	float lastVal = 1.0f;
+	float out = in;
+	float temp;
+
+	// depth=1 is the base case
+	for( int i = 1; i < depth; i++ )
 	{
-		return in;
+		temp = out;
+		out = ( 2.0f * in * out ) - lastVal;
+		lastVal = temp;
 	}
-	return ( 2.0f * in * chebyshevRec( in, depth - 1 ) ) - chebyshevRec( in, depth - 2 );
+	return out;
 }
